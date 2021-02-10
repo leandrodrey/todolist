@@ -5,14 +5,17 @@ services:
     ports:
       - "80:80"
     links:
-      - php
+      - symfony-php
     volumes:
       - "./:/var/www"
       - "./docker/config/nginx/vhost/backend_vhost:/etc/nginx/conf.d/030-backend.conf:ro"
       - ./logs/nginx/:/var/log/nginx
 
-  php:
-    build: ./docker/.
+  symfony-php:
+    build:
+      context: ./docker/.
+      args:
+        UID: $U_ID
     links:
       - db
     volumes:
